@@ -92,45 +92,37 @@ class MathKeyboard extends StatelessWidget {
             right: 0,
             child: Material(
               type: MaterialType.transparency,
-              child: ColoredBox(
-                color: Colors.black,
-                child: SafeArea(
-                  top: false,
-                  child: _KeyboardBody(
-                    insetsState: insetsState,
-                    slideAnimation:
-                        slideAnimation == null ? null : curvedSlideAnimation,
-                    child: Padding(
-                      padding: padding,
-                      child: Center(
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: 5e2,
-                          ),
-                          child: Column(
-                            children: [
-                              if (type != MathKeyboardType.numberOnly)
-                                _Variables(
-                                  controller: controller,
-                                  variables: variables,
-                                ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 4,
-                                ),
-                                child: _Buttons(
-                                  controller: controller,
-                                  page1: type == MathKeyboardType.numberOnly
-                                      ? numberKeyboard
-                                      : standardKeyboard,
-                                  page2: type == MathKeyboardType.numberOnly
-                                      ? null
-                                      : functionKeyboard,
-                                  onSubmit: onSubmit,
-                                ),
+              child: SafeArea(
+                top: false,
+                child: _KeyboardBody(
+                  insetsState: insetsState,
+                  slideAnimation:
+                      slideAnimation == null ? null : curvedSlideAnimation,
+                  child: Padding(
+                    padding: padding,
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 6e2,
+                        ),
+                        child: Column(
+                          children: [
+                            if (type != MathKeyboardType.numberOnly)
+                              _Variables(
+                                controller: controller,
+                                variables: variables,
                               ),
-                            ],
-                          ),
+                            _Buttons(
+                              controller: controller,
+                              page1: type == MathKeyboardType.numberOnly
+                                  ? numberKeyboard
+                                  : standardKeyboard,
+                              page2: type == MathKeyboardType.numberOnly
+                                  ? null
+                                  : functionKeyboard,
+                              onSubmit: onSubmit,
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -247,8 +239,14 @@ class _Variables extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
+      ),
       height: 54,
-      color: Colors.grey[900],
       child: AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
@@ -308,76 +306,85 @@ class _Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 230,
-      child: AnimatedBuilder(
-        animation: controller,
-        builder: (context, child) {
-          final layout =
-              controller.secondPage ? page2! : page1 ?? numberKeyboard;
-          return Column(
-            children: [
-              for (final row in layout)
-                SizedBox(
-                  height: 56,
-                  child: Row(
-                    children: [
-                      for (final config in row)
-                        if (config is BasicKeyboardButtonConfig)
-                          _BasicButton(
-                            flex: config.flex,
-                            label: config.label,
-                            onTap: config.args != null
-                                ? () => controller.addFunction(
-                                      config.value,
-                                      config.args!,
-                                    )
-                                : () => controller.addLeaf(config.value),
-                            asTex: config.asTex,
-                            highlightLevel: config.highlighted ? 1 : 0,
-                          )
-                        else if (config is DeleteButtonConfig)
-                          _NavigationButton(
-                            flex: config.flex,
-                            icon: Icons.backspace,
-                            iconSize: 22,
-                            onTap: () => controller.goBack(deleteMode: true),
-                          )
-                        else if (config is PageButtonConfig)
-                          _BasicButton(
-                            flex: config.flex,
-                            icon: controller.secondPage
-                                ? null
-                                : CustomKeyIcons.key_symbols,
-                            label: controller.secondPage ? '123' : null,
-                            onTap: controller.togglePage,
-                            highlightLevel: 1,
-                          )
-                        else if (config is PreviousButtonConfig)
-                          _NavigationButton(
-                            flex: config.flex,
-                            icon: Icons.chevron_left_rounded,
-                            onTap: controller.goBack,
-                          )
-                        else if (config is NextButtonConfig)
-                          _NavigationButton(
-                            flex: config.flex,
-                            icon: Icons.chevron_right_rounded,
-                            onTap: controller.goNext,
-                          )
-                        else if (config is SubmitButtonConfig)
-                          _BasicButton(
-                            flex: config.flex,
-                            icon: Icons.keyboard_return,
-                            onTap: onSubmit,
-                            highlightLevel: 2,
-                          ),
-                    ],
+    return Container(
+      constraints: BoxConstraints(maxHeight: 260),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, child) {
+            final layout =
+                controller.secondPage ? page2! : page1 ?? numberKeyboard;
+            return Column(
+              children: [
+                for (final row in layout)
+                  SizedBox(
+                    height: 52,
+                    child: Row(
+                      children: [
+                        for (final config in row)
+                          if (config is BasicKeyboardButtonConfig)
+                            _BasicButton(
+                              flex: config.flex,
+                              label: config.label,
+                              onTap: config.args != null
+                                  ? () => controller.addFunction(
+                                        config.value,
+                                        config.args!,
+                                      )
+                                  : () => controller.addLeaf(config.value),
+                              asTex: config.asTex,
+                              highlightLevel: config.highlighted ? 1 : 0,
+                            )
+                          else if (config is DeleteButtonConfig)
+                            _NavigationButton(
+                              flex: config.flex,
+                              icon: Icons.backspace,
+                              iconSize: 22,
+                              onTap: () => controller.goBack(deleteMode: true),
+                            )
+                          else if (config is PageButtonConfig)
+                            _BasicButton(
+                              flex: config.flex,
+                              icon: controller.secondPage
+                                  ? null
+                                  : CustomKeyIcons.key_symbols,
+                              label: controller.secondPage ? '123' : null,
+                              onTap: controller.togglePage,
+                              highlightLevel: 1,
+                            )
+                          else if (config is PreviousButtonConfig)
+                            _NavigationButton(
+                              flex: config.flex,
+                              icon: Icons.chevron_left_rounded,
+                              onTap: controller.goBack,
+                            )
+                          else if (config is NextButtonConfig)
+                            _NavigationButton(
+                              flex: config.flex,
+                              icon: Icons.chevron_right_rounded,
+                              onTap: controller.goNext,
+                            )
+                          else if (config is SubmitButtonConfig)
+                            _BasicButton(
+                              flex: config.flex,
+                              icon: Icons.keyboard_return,
+                              onTap: onSubmit,
+                              highlightLevel: 2,
+                            ),
+                      ],
+                    ),
                   ),
-                ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

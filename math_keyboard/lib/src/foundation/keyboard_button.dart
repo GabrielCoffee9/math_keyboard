@@ -116,18 +116,6 @@ const _subtractButton = BasicKeyboardButtonConfig(
 final functionKeyboard = [
   [
     const BasicKeyboardButtonConfig(
-      label: r'\frac{\Box}{\Box}',
-      value: r'\frac',
-      args: [TeXArg.braces, TeXArg.braces],
-      asTex: true,
-    ),
-    const BasicKeyboardButtonConfig(
-      label: r'\Box^2',
-      value: '^2',
-      args: [TeXArg.braces],
-      asTex: true,
-    ),
-    const BasicKeyboardButtonConfig(
       label: r'\Box^{\Box}',
       value: '^',
       args: [TeXArg.braces],
@@ -141,19 +129,6 @@ final functionKeyboard = [
       ],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\sin',
-      value: r'\sin(',
-      asTex: true,
-      keyboardCharacters: ['s'],
-    ),
-    const BasicKeyboardButtonConfig(
-      label: r'\sin^{-1}',
-      value: r'\sin^{-1}(',
-      asTex: true,
-    ),
-  ],
-  [
-    const BasicKeyboardButtonConfig(
       label: r'\sqrt{\Box}',
       value: r'\sqrt',
       args: [TeXArg.braces],
@@ -164,6 +139,41 @@ final functionKeyboard = [
       label: r'\sqrt[\Box]{\Box}',
       value: r'\sqrt',
       args: [TeXArg.brackets, TeXArg.braces],
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\frac{\Box}{\Box}',
+      value: r'\frac',
+      args: [TeXArg.braces, TeXArg.braces],
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\log_{\Box}(\Box)',
+      value: r'\log_',
+      asTex: true,
+      args: [TeXArg.braces, TeXArg.parentheses],
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\pi',
+      value: r'\pi',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\int\:',
+      value: r'\int\:',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\int_{\Box}^{\Box}\:',
+      value: r'\int _',
+      args: [TeXArg.braces, TeXArg.power, TeXArg.braces],
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\sin^{-1}',
+      value: r'\sin^{-1}(',
       asTex: true,
     ),
     const BasicKeyboardButtonConfig(
@@ -180,11 +190,24 @@ final functionKeyboard = [
   ],
   [
     const BasicKeyboardButtonConfig(
-      label: r'\log_{\Box}(\Box)',
-      value: r'\log_',
+      label: r'\ln(\Box)',
+      value: r'\ln(',
       asTex: true,
-      args: [TeXArg.braces, TeXArg.parentheses],
+      keyboardCharacters: ['l'],
     ),
+    const BasicKeyboardButtonConfig(
+      label: r'\tan',
+      value: r'\tan(',
+      asTex: true,
+      keyboardCharacters: ['t'],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\tan^{-1}',
+      value: r'\tan^{-1}(',
+      asTex: true,
+    ),
+  ],
+  [
     const BasicKeyboardButtonConfig(
       label: r'\ln(\Box)',
       value: r'\ln(',
@@ -237,9 +260,8 @@ final standardKeyboard = [
     ),
     const BasicKeyboardButtonConfig(
       label: '÷',
-      value: r'\frac',
+      value: r'\div',
       keyboardCharacters: ['/'],
-      args: [TeXArg.braces, TeXArg.braces],
       highlighted: true,
     ),
   ],

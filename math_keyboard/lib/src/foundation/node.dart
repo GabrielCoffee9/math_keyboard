@@ -163,6 +163,8 @@ class TeXFunction extends TeX {
         return '}';
       case TeXArg.brackets:
         return ']';
+      case TeXArg.power:
+        return '^';
       default:
         return ')';
     }
@@ -172,8 +174,11 @@ class TeXFunction extends TeX {
   String buildString({Color? cursorColor}) {
     final buffer = StringBuffer(expression);
     for (var i = 0; i < args.length; i++) {
-      buffer.write(openingChar(args[i]));
-      buffer.write(argNodes[i].buildTeXString(cursorColor: cursorColor));
+      if (args[i] != TeXArg.power) {
+        buffer.write(openingChar(args[i]));
+        buffer.write(argNodes[i].buildTeXString(cursorColor: cursorColor));
+      }
+
       buffer.write(closingChar(args[i]));
     }
     return buffer.toString();
@@ -242,6 +247,13 @@ enum TeXArg {
   ///
   /// Brackets are only used for the nth root at the moment.
   brackets,
+
+  /// ^
+  ///
+  /// Indicates a raise to the power between arguments, must be informed in correct order.
+  ///
+  /// E.g: TeXArg.braces, TeXArg.power, TeXArg.braces, results => {}^{}.
+  power,
 
   /// ()
   ///

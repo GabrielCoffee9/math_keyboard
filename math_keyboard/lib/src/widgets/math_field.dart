@@ -712,10 +712,28 @@ class MathFieldEditingController extends ChangeNotifier {
         // Otherwise, the current node must be a function argument.
         currentNode.removeCursor();
         final parent = currentNode.parent!;
-        final nextArg = parent.argNodes.indexOf(currentNode) - 1;
+        var nextArg = parent.argNodes.indexOf(currentNode) - 1;
         // If the parent function has another argument before this one,
         // we jump into that, otherwise we position the courser right
         // before the function.
+
+        //Decrements the node if the previous one is related with a power arg.
+        if (currentNode.parent?.args != null) {
+          final nextNode =
+              (currentNode.parent!.argNodes.indexOf(currentNode) - 1);
+
+          for (var element in currentNode.parent!.args) {
+            if (element == TeXArg.power) {
+              var elementArgsIndex = currentNode.parent!.args.indexOf(element);
+
+              if (elementArgsIndex == nextNode) {
+                nextArg--;
+              }
+              ;
+            }
+          }
+        }
+
         if (nextArg < 0) {
           currentNode = parent.parent;
           currentNode.courserPosition = currentNode.children.indexOf(parent);
@@ -758,10 +776,28 @@ class MathFieldEditingController extends ChangeNotifier {
         // Otherwise, the current node must be a function argument.
         currentNode.removeCursor();
         final parent = currentNode.parent!;
-        final nextArg = parent.argNodes.indexOf(currentNode) + 1;
+        var nextArg = parent.argNodes.indexOf(currentNode) + 1;
         // If the parent function has another argument after this one,
         // we jump into that, otherwise we position the courser right
         // after the function.
+
+        //Increments the node if the next one is related with a power arg.
+        if (currentNode.parent?.args != null) {
+          final nextNode =
+              (currentNode.parent!.argNodes.indexOf(currentNode) + 1);
+
+          for (var element in currentNode.parent!.args) {
+            if (element == TeXArg.power) {
+              var elementArgsIndex = currentNode.parent!.args.indexOf(element);
+
+              if (elementArgsIndex == nextNode) {
+                nextArg++;
+              }
+              ;
+            }
+          }
+        }
+
         if (nextArg >= parent.argNodes.length) {
           currentNode = parent.parent;
           currentNode.courserPosition =
