@@ -341,6 +341,7 @@ class _Buttons extends StatelessWidget {
                                   : () => controller.addLeaf(config.value),
                               asTex: config.asTex,
                               highlightLevel: config.highlighted ? 1 : 0,
+                              texFontSize: config.texFontSize,
                             )
                           else if (config is DeleteButtonConfig)
                             _NavigationButton(
@@ -400,6 +401,7 @@ class _BasicButton extends StatelessWidget {
     this.icon,
     this.onTap,
     this.asTex = false,
+    this.texFontSize = 22,
     this.highlightLevel = 0,
   })  : assert(label != null || icon != null),
         super(key: key);
@@ -419,6 +421,8 @@ class _BasicButton extends StatelessWidget {
   /// Show label as tex.
   final bool asTex;
 
+  final double texFontSize;
+
   /// Whether this button should be highlighted.
   final int highlightLevel;
 
@@ -434,7 +438,7 @@ class _BasicButton extends StatelessWidget {
       result = Math.tex(
         label!,
         options: MathOptions(
-          fontSize: 22,
+          fontSize: texFontSize,
           color: Colors.white,
         ),
       );

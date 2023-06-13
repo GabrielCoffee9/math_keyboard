@@ -32,6 +32,7 @@ class BasicKeyboardButtonConfig extends KeyboardButtonConfig {
     required this.value,
     this.args,
     this.asTex = false,
+    this.texFontSize = 22,
     this.highlighted = false,
     List<String> keyboardCharacters = const [],
     int? flex,
@@ -51,6 +52,9 @@ class BasicKeyboardButtonConfig extends KeyboardButtonConfig {
 
   /// Whether to display the label as TeX or as plain text.
   final bool asTex;
+
+  /// Defines font size label when is Tex.
+  final double texFontSize;
 
   /// The highlight level of this button.
   final bool highlighted;
@@ -116,7 +120,7 @@ const _subtractButton = BasicKeyboardButtonConfig(
 final functionKeyboard = [
   [
     const BasicKeyboardButtonConfig(
-      label: r'\Box^{\Box}',
+      label: r'x^{\Box}',
       value: '^',
       args: [TeXArg.braces],
       asTex: true,
@@ -146,47 +150,55 @@ final functionKeyboard = [
       value: r'\frac',
       args: [TeXArg.braces, TeXArg.braces],
       asTex: true,
+      texFontSize: 20,
     ),
+  ],
+  [
     const BasicKeyboardButtonConfig(
       label: r'\log_{\Box}(\Box)',
       value: r'\log_',
       asTex: true,
       args: [TeXArg.braces, TeXArg.parentheses],
     ),
-  ],
-  [
-    const BasicKeyboardButtonConfig(
-      label: r'\pi',
-      value: r'\pi',
-      asTex: true,
-    ),
+
     const BasicKeyboardButtonConfig(
       label: r'\int\:',
       value: r'\int\:',
       asTex: true,
+      texFontSize: 18,
     ),
     const BasicKeyboardButtonConfig(
       label: r'\int_{\Box}^{\Box}\:',
       value: r'\int _',
       args: [TeXArg.braces, TeXArg.power, TeXArg.braces],
       asTex: true,
+      texFontSize: 17,
     ),
+
     const BasicKeyboardButtonConfig(
-      label: r'\sin^{-1}',
-      value: r'\sin^{-1}(',
+      label: r'\sum_{\Box}^{\Box}',
+      value: r'\sum_',
+      args: [TeXArg.braces, TeXArg.power, TeXArg.braces],
       asTex: true,
+      texFontSize: 14,
     ),
-    const BasicKeyboardButtonConfig(
-      label: r'\cos',
-      value: r'\cos(',
-      asTex: true,
-      keyboardCharacters: ['c'],
-    ),
-    const BasicKeyboardButtonConfig(
-      label: r'\cos^{-1}',
-      value: r'\cos^{-1}(',
-      asTex: true,
-    ),
+
+    // const BasicKeyboardButtonConfig(
+    //   label: r'\sin^{-1}',
+    //   value: r'\sin^{-1}(',
+    //   asTex: true,
+    // ),
+    // const BasicKeyboardButtonConfig(
+    //   label: r'\cos',
+    //   value: r'\cos(',
+    //   asTex: true,
+    //   keyboardCharacters: ['c'],
+    // ),
+    // const BasicKeyboardButtonConfig(
+    //   label: r'\cos^{-1}',
+    //   value: r'\cos^{-1}(',
+    //   asTex: true,
+    // ),
   ],
   [
     const BasicKeyboardButtonConfig(
@@ -196,33 +208,31 @@ final functionKeyboard = [
       keyboardCharacters: ['l'],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\tan',
-      value: r'\tan(',
+      label: r'\pi',
+      value: r'\pi',
       asTex: true,
-      keyboardCharacters: ['t'],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\tan^{-1}',
-      value: r'\tan^{-1}(',
+      label: r'\theta',
+      value: r'\theta',
       asTex: true,
     ),
   ],
   [
     const BasicKeyboardButtonConfig(
-      label: r'\ln(\Box)',
-      value: r'\ln(',
+      label: r'\infty',
+      value: r'\infty',
       asTex: true,
-      keyboardCharacters: ['l'],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\tan',
-      value: r'\tan(',
+      label: r'\ge',
+      value: r'\ge',
       asTex: true,
       keyboardCharacters: ['t'],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\tan^{-1}',
-      value: r'\tan^{-1}(',
+      label: r'\le',
+      value: r'\le',
       asTex: true,
     ),
   ],
