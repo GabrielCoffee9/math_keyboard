@@ -199,13 +199,20 @@ final functionKeyboard = [
       args: [TeXArg.parentheses],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\pi',
-      value: r'\pi',
+      label: r'|\Box|',
+      value: '',
       asTex: true,
+      args: [TeXArg.verticalBars],
+      keyboardCharacters: ['|'],
     ),
     const BasicKeyboardButtonConfig(
       label: r'\cdot',
       value: r'\cdot',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'x^\circ',
+      value: r'^\circ',
       asTex: true,
     ),
   ],
@@ -213,6 +220,11 @@ final functionKeyboard = [
     const BasicKeyboardButtonConfig(
       label: r'\infty',
       value: r'\infty',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\pi',
+      value: r'\pi',
       asTex: true,
     ),
     const BasicKeyboardButtonConfig(
@@ -327,37 +339,16 @@ final extraSymbolsKeyboard = [
   ],
   [
     const BasicKeyboardButtonConfig(
-      label: r'\ln(\Box)',
-      value: r'\ln',
-      asTex: true,
-      args: [TeXArg.parentheses],
-    ),
-    const BasicKeyboardButtonConfig(
-      label: r'\pi',
-      value: r'\pi',
-      asTex: true,
-    ),
-    const BasicKeyboardButtonConfig(
       label: r'\theta',
       value: r'\theta',
       asTex: true,
-    ),
-  ],
-  [
-    const BasicKeyboardButtonConfig(
-      label: r'\infty',
-      value: r'\infty',
-      asTex: true,
+      tooltip: true,
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\ge',
-      value: r'\ge',
+      label: r'\Theta',
+      value: r'\Theta',
       asTex: true,
-    ),
-    const BasicKeyboardButtonConfig(
-      label: r'\le',
-      value: r'\le',
-      asTex: true,
+      tooltip: true,
     ),
   ],
   [

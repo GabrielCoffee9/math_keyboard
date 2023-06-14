@@ -151,6 +151,8 @@ class TeXFunction extends TeX {
         return '{';
       case TeXArg.brackets:
         return '[';
+      case TeXArg.verticalBars:
+        return '|';
       default:
         return '(';
     }
@@ -165,6 +167,8 @@ class TeXFunction extends TeX {
         return ']';
       case TeXArg.power:
         return '^';
+      case TeXArg.verticalBars:
+        return '|';
       default:
         return ')';
     }
@@ -254,6 +258,11 @@ enum TeXArg {
   ///
   /// E.g: TeXArg.braces, TeXArg.power, TeXArg.braces, results => {}^{}.
   power,
+
+  /// | |
+  ///
+  /// Vertical bars
+  verticalBars,
 
   /// ()
   ///
