@@ -120,6 +120,9 @@ class MathKeyboard extends StatelessWidget {
                               page2: type == MathKeyboardType.numberOnly
                                   ? null
                                   : functionKeyboard,
+                              extraPage: type == MathKeyboardType.numberOnly
+                                  ? null
+                                  : extraSymbolsKeyboard,
                               onSubmit: onSubmit,
                             ),
                           ],
@@ -286,6 +289,7 @@ class _Buttons extends StatelessWidget {
     required this.controller,
     this.page1,
     this.page2,
+    this.extraPage,
     this.onSubmit,
   }) : super(key: key);
 
@@ -298,6 +302,9 @@ class _Buttons extends StatelessWidget {
 
   /// The buttons to display.
   final List<List<KeyboardButtonConfig>>? page2;
+
+  /// The buttons to display.
+  final List<List<KeyboardButtonConfig>>? extraPage;
 
   /// Function that is called when the enter / submit button is tapped.
   ///
@@ -319,8 +326,11 @@ class _Buttons extends StatelessWidget {
         child: AnimatedBuilder(
           animation: controller,
           builder: (context, child) {
-            final layout =
-                controller.secondPage ? page2! : page1 ?? numberKeyboard;
+            final layout = controller.secondPage
+                ? controller.extraSymbolsPage
+                    ? extraPage!
+                    : page2!
+                : page1 ?? numberKeyboard;
             return Column(
               children: [
                 for (final row in layout)
@@ -342,6 +352,7 @@ class _Buttons extends StatelessWidget {
                               asTex: config.asTex,
                               highlightLevel: config.highlighted ? 1 : 0,
                               texFontSize: config.texFontSize,
+                              tooltip: config.tooltip,
                             )
                           else if (config is DeleteButtonConfig)
                             _NavigationButton(
@@ -378,6 +389,17 @@ class _Buttons extends StatelessWidget {
                               icon: Icons.keyboard_return,
                               onTap: onSubmit,
                               highlightLevel: 2,
+                            )
+                          else if (config is ExtraSymbolsButtonConfig)
+                            _BasicButton(
+                              flex: config.flex,
+                              icon: controller.extraSymbolsPage
+                                  ? CustomKeyIcons.key_symbols
+                                  : null,
+                              label: controller.extraSymbolsPage ? null : 'Aα',
+                              onTap: controller.toggleExtraSymbolsPage,
+                              // tooltip: true,
+                              highlightLevel: 1,
                             ),
                       ],
                     ),
@@ -402,6 +424,7 @@ class _BasicButton extends StatelessWidget {
     this.onTap,
     this.asTex = false,
     this.texFontSize = 22,
+    this.tooltip = false,
     this.highlightLevel = 0,
   })  : assert(label != null || icon != null),
         super(key: key);
@@ -423,6 +446,8 @@ class _BasicButton extends StatelessWidget {
 
   final double texFontSize;
 
+  final bool tooltip;
+
   /// Whether this button should be highlighted.
   final int highlightLevel;
 
@@ -435,11 +460,14 @@ class _BasicButton extends StatelessWidget {
         color: Colors.white,
       );
     } else if (asTex) {
-      result = Math.tex(
-        label!,
-        options: MathOptions(
-          fontSize: texFontSize,
-          color: Colors.white,
+      result = Tooltip(
+        message: tooltip ? label!.replaceAll(r'\', '') : '',
+        child: Math.tex(
+          label!,
+          options: MathOptions(
+            fontSize: texFontSize,
+            color: Colors.white,
+          ),
         ),
       );
     } else {

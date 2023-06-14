@@ -33,6 +33,7 @@ class BasicKeyboardButtonConfig extends KeyboardButtonConfig {
     this.args,
     this.asTex = false,
     this.texFontSize = 22,
+    this.tooltip = false,
     this.highlighted = false,
     List<String> keyboardCharacters = const [],
     int? flex,
@@ -55,6 +56,9 @@ class BasicKeyboardButtonConfig extends KeyboardButtonConfig {
 
   /// Defines font size label when is Tex.
   final double texFontSize;
+
+  /// the state of tooltip when label is Tex.
+  final bool tooltip;
 
   /// The highlight level of this button.
   final bool highlighted;
@@ -88,6 +92,12 @@ class SubmitButtonConfig extends KeyboardButtonConfig {
 class PageButtonConfig extends KeyboardButtonConfig {
   /// Constructs a [PageButtonConfig].
   const PageButtonConfig({int? flex}) : super(flex: flex);
+}
+
+/// Class representing a button configuration of the Extra Symbols Page Toggle Button.
+class ExtraSymbolsButtonConfig extends KeyboardButtonConfig {
+  /// Constructs a [ExtraSymbolsButtonConfig].
+  const ExtraSymbolsButtonConfig({int? flex}) : super(flex: flex);
 }
 
 /// List of keyboard button configs for the digits from 0-9.
@@ -160,7 +170,6 @@ final functionKeyboard = [
       asTex: true,
       args: [TeXArg.braces, TeXArg.parentheses],
     ),
-
     const BasicKeyboardButtonConfig(
       label: r'\int\:',
       value: r'\int\:',
@@ -174,7 +183,6 @@ final functionKeyboard = [
       asTex: true,
       texFontSize: 17,
     ),
-
     const BasicKeyboardButtonConfig(
       label: r'\sum_{\Box}^{\Box}',
       value: r'\sum_',
@@ -182,30 +190,147 @@ final functionKeyboard = [
       asTex: true,
       texFontSize: 14,
     ),
-
-    // const BasicKeyboardButtonConfig(
-    //   label: r'\sin^{-1}',
-    //   value: r'\sin^{-1}(',
-    //   asTex: true,
-    // ),
-    // const BasicKeyboardButtonConfig(
-    //   label: r'\cos',
-    //   value: r'\cos(',
-    //   asTex: true,
-    //   keyboardCharacters: ['c'],
-    // ),
-    // const BasicKeyboardButtonConfig(
-    //   label: r'\cos^{-1}',
-    //   value: r'\cos^{-1}(',
-    //   asTex: true,
-    // ),
   ],
   [
     const BasicKeyboardButtonConfig(
       label: r'\ln(\Box)',
-      value: r'\ln(',
+      value: r'\ln',
       asTex: true,
-      keyboardCharacters: ['l'],
+      args: [TeXArg.parentheses],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\pi',
+      value: r'\pi',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\cdot',
+      value: r'\cdot',
+      asTex: true,
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\infty',
+      value: r'\infty',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\ge',
+      value: r'\ge',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\le',
+      value: r'\le',
+      asTex: true,
+    ),
+  ],
+  [
+    const PageButtonConfig(flex: 3),
+    const ExtraSymbolsButtonConfig(flex: 2),
+    const BasicKeyboardButtonConfig(
+      label: '(',
+      value: '(',
+      highlighted: true,
+      keyboardCharacters: ['('],
+    ),
+    const BasicKeyboardButtonConfig(
+      label: ')',
+      value: ')',
+      highlighted: true,
+      keyboardCharacters: [')'],
+    ),
+    PreviousButtonConfig(),
+    NextButtonConfig(),
+    DeleteButtonConfig(),
+  ],
+];
+
+/// Keyboard showing extra symbols.
+final extraSymbolsKeyboard = [
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\alpha',
+      value: r'\alpha',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Alpha',
+      value: r'\Alpha',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\beta',
+      value: r'\beta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Beta',
+      value: r'\Beta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\gamma',
+      value: r'\gamma',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Gamma',
+      value: r'\Gamma',
+      asTex: true,
+      tooltip: true,
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\delta',
+      value: r'\delta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Delta',
+      value: r'\Delta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\zeta',
+      value: r'\zeta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Zeta',
+      value: r'\Zeta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\eta',
+      value: r'\eta',
+      asTex: true,
+      tooltip: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\Eta',
+      value: r'\Eta',
+      asTex: true,
+      tooltip: true,
+    ),
+  ],
+  [
+    const BasicKeyboardButtonConfig(
+      label: r'\ln(\Box)',
+      value: r'\ln',
+      asTex: true,
+      args: [TeXArg.parentheses],
     ),
     const BasicKeyboardButtonConfig(
       label: r'\pi',
@@ -228,7 +353,6 @@ final functionKeyboard = [
       label: r'\ge',
       value: r'\ge',
       asTex: true,
-      keyboardCharacters: ['t'],
     ),
     const BasicKeyboardButtonConfig(
       label: r'\le',
@@ -238,6 +362,7 @@ final functionKeyboard = [
   ],
   [
     const PageButtonConfig(flex: 3),
+    const ExtraSymbolsButtonConfig(flex: 2),
     const BasicKeyboardButtonConfig(
       label: '(',
       value: '(',
@@ -264,7 +389,7 @@ final standardKeyboard = [
     _digitButtons[9],
     const BasicKeyboardButtonConfig(
       label: '×',
-      value: r'\cdot',
+      value: r'\times',
       keyboardCharacters: ['*'],
       highlighted: true,
     ),

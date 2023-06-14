@@ -144,11 +144,7 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
       );
   late var _controller = widget.controller ?? MathFieldEditingController();
 
-  List<String> get _variables => [
-        r'\pi',
-        'e',
-        ...widget.variables,
-      ];
+  List<String> get _variables => widget.variables;
 
   @override
   void initState() {
@@ -649,6 +645,9 @@ class MathFieldEditingController extends ChangeNotifier {
   /// Type of the Keyboard.
   bool secondPage = false;
 
+  /// Extra Symbols page state.
+  bool extraSymbolsPage = false;
+
   /// The root node of the expression.
   TeXNode root = TeXNode(null);
 
@@ -984,6 +983,12 @@ class MathFieldEditingController extends ChangeNotifier {
   /// Switches between Page 1 and 2.
   void togglePage() {
     secondPage = !secondPage;
+    notifyListeners();
+  }
+
+  /// Switches between extra symbols Page on and off.
+  void toggleExtraSymbolsPage() {
+    extraSymbolsPage = !extraSymbolsPage;
     notifyListeners();
   }
 
