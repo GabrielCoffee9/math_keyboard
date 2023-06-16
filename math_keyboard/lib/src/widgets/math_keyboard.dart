@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
-import 'package:math_keyboard/src/custom_key_icons/custom_key_icons.dart';
 import 'package:math_keyboard/src/foundation/keyboard_button.dart';
 import 'package:math_keyboard/src/widgets/decimal_separator.dart';
 import 'package:math_keyboard/src/widgets/keyboard_button.dart';
@@ -24,7 +23,7 @@ enum MathKeyboardType {
 }
 
 /// Widget displaying the math keyboard.
-class MathKeyboard extends StatelessWidget {
+class MathKeyboard extends StatefulWidget {
   /// Constructs a [MathKeyboard].
   const MathKeyboard({
     Key? key,
@@ -73,9 +72,14 @@ class MathKeyboard extends StatelessWidget {
   final EdgeInsets padding;
 
   @override
+  State<MathKeyboard> createState() => _MathKeyboardState();
+}
+
+class _MathKeyboardState extends State<MathKeyboard> {
+  @override
   Widget build(BuildContext context) {
     final curvedSlideAnimation = CurvedAnimation(
-      parent: slideAnimation ?? AlwaysStoppedAnimation(1),
+      parent: widget.slideAnimation ?? AlwaysStoppedAnimation(1),
       curve: Curves.ease,
     );
 
@@ -95,11 +99,12 @@ class MathKeyboard extends StatelessWidget {
               child: SafeArea(
                 top: false,
                 child: _KeyboardBody(
-                  insetsState: insetsState,
-                  slideAnimation:
-                      slideAnimation == null ? null : curvedSlideAnimation,
+                  insetsState: widget.insetsState,
+                  slideAnimation: widget.slideAnimation == null
+                      ? null
+                      : curvedSlideAnimation,
                   child: Padding(
-                    padding: padding,
+                    padding: widget.padding,
                     child: Center(
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
@@ -107,23 +112,24 @@ class MathKeyboard extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            if (type != MathKeyboardType.numberOnly)
+                            if (widget.type != MathKeyboardType.numberOnly)
                               _Variables(
-                                controller: controller,
-                                variables: variables,
+                                controller: widget.controller,
+                                variables: widget.variables,
                               ),
                             _Buttons(
-                              controller: controller,
-                              page1: type == MathKeyboardType.numberOnly
+                              controller: widget.controller,
+                              page1: widget.type == MathKeyboardType.numberOnly
                                   ? numberKeyboard
                                   : standardKeyboard,
-                              page2: type == MathKeyboardType.numberOnly
+                              page2: widget.type == MathKeyboardType.numberOnly
                                   ? null
                                   : functionKeyboard,
-                              extraPage: type == MathKeyboardType.numberOnly
-                                  ? null
-                                  : extraSymbolsKeyboard,
-                              onSubmit: onSubmit,
+                              extraPage:
+                                  widget.type == MathKeyboardType.numberOnly
+                                      ? null
+                                      : extraSymbolsKeyboard,
+                              onSubmit: widget.onSubmit,
                             ),
                           ],
                         ),
@@ -254,6 +260,7 @@ class _Variables extends StatelessWidget {
         animation: controller,
         builder: (context, child) {
           return ListView.separated(
+            physics: const AlwaysScrollableScrollPhysics(),
             itemCount: variables.length,
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) {
@@ -314,7 +321,6 @@ class _Buttons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 260),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.only(
@@ -364,10 +370,7 @@ class _Buttons extends StatelessWidget {
                           else if (config is PageButtonConfig)
                             _BasicButton(
                               flex: config.flex,
-                              icon: controller.secondPage
-                                  ? null
-                                  : CustomKeyIcons.key_symbols,
-                              label: controller.secondPage ? '123' : null,
+                              label: controller.secondPage ? '123' : '√ 𝑥²',
                               onTap: controller.togglePage,
                               highlightLevel: 1,
                             )
@@ -393,10 +396,9 @@ class _Buttons extends StatelessWidget {
                           else if (config is ExtraSymbolsButtonConfig)
                             _BasicButton(
                               flex: config.flex,
-                              icon: controller.extraSymbolsPage
-                                  ? CustomKeyIcons.key_symbols
-                                  : null,
-                              label: controller.extraSymbolsPage ? null : 'Aα',
+
+                              label:
+                                  controller.extraSymbolsPage ? '√ 𝑥²' : 'α Δ',
                               onTap: controller.toggleExtraSymbolsPage,
                               // tooltip: true,
                               highlightLevel: 1,

@@ -198,6 +198,12 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
         _focusNode = widget.focusNode!;
       }
     }
+
+    if (oldWidget.variables != widget.variables) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        _openKeyboard(context);
+      });
+    }
   }
 
   @override
