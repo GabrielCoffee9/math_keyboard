@@ -351,7 +351,7 @@ final extraSymbolsKeyboard = [
     ),
     const BasicKeyboardButtonConfig(
       label: r'o',
-      value: r'o',
+      value: r' o',
       asTex: true,
       tooltip: true,
     ),
@@ -501,7 +501,7 @@ final extraSymbolsKeyboard = [
     ),
     const BasicKeyboardButtonConfig(
       label: r'O',
-      value: r'O',
+      value: r' O',
       asTex: true,
       tooltip: true,
     ),
