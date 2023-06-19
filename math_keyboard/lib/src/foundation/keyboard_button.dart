@@ -171,13 +171,13 @@ final functionKeyboard = [
       args: [TeXArg.braces, TeXArg.parentheses],
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\int\:',
-      value: r'\int\:',
+      label: r'\int',
+      value: r'\int',
       asTex: true,
       texFontSize: 18,
     ),
     const BasicKeyboardButtonConfig(
-      label: r'\int_{\Box}^{\Box}\:',
+      label: r'\int_{\Box}^{\Box}',
       value: r'\int _',
       args: [TeXArg.braces, TeXArg.power, TeXArg.braces],
       asTex: true,
