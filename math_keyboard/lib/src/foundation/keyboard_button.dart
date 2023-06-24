@@ -240,6 +240,23 @@ final functionKeyboard = [
     ),
   ],
   [
+    const BasicKeyboardButtonConfig(
+      label: r'\sin',
+      value: r'\sin',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\cos',
+      value: r'\cos',
+      asTex: true,
+    ),
+    const BasicKeyboardButtonConfig(
+      label: r'\tan',
+      value: r'\tan',
+      asTex: true,
+    ),
+  ],
+  [
     const PageButtonConfig(flex: 3),
     const ExtraSymbolsButtonConfig(flex: 2),
     const BasicKeyboardButtonConfig(
@@ -566,16 +583,16 @@ final extraSymbolsKeyboard = [
     const PageButtonConfig(flex: 3),
     const ExtraSymbolsButtonConfig(flex: 2),
     const BasicKeyboardButtonConfig(
-      label: '(',
-      value: '(',
+      label: '[',
+      value: '[',
       highlighted: true,
-      keyboardCharacters: ['('],
+      keyboardCharacters: ['['],
     ),
     const BasicKeyboardButtonConfig(
-      label: ')',
-      value: ')',
+      label: ']',
+      value: ']',
       highlighted: true,
-      keyboardCharacters: [')'],
+      keyboardCharacters: [']'],
     ),
     PreviousButtonConfig(),
     NextButtonConfig(),
