@@ -219,7 +219,7 @@ final functionKeyboard = [
   [
     const BasicKeyboardButtonConfig(
       label: r'f(\Box)',
-      value: r'f',
+      value: r' f ',
       asTex: true,
       args: [TeXArg.parentheses],
     ),
