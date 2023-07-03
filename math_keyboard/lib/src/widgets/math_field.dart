@@ -690,6 +690,20 @@ class MathFieldEditingController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Clears the current value and sets it to the [texString] (parsed to expression) equivalent.
+  void updateValueString(String texString) {
+    try {
+      var texExp = Parser().parse(texString);
+      root = convertMathExpressionToTeXNode(texExp);
+    } catch (e) {
+      throw Exception('Unsupported input string expression ($e)');
+    }
+    currentNode = root;
+    currentNode.courserPosition = currentNode.children.length;
+    currentNode.setCursor();
+    notifyListeners();
+  }
+
   /// Navigate to the previous node.
   void goBack({bool deleteMode = false}) {
     final state =
