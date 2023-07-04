@@ -108,6 +108,41 @@ class TeXNode {
     }
     return buffer.toString();
   }
+
+  /// Converts the `TeXNode` instance to a JSON representation.
+  Map<String, dynamic> toJson() {
+    return {
+      'courserPosition': courserPosition,
+      'children': children.map((child) => child.toJson()).toList(),
+    };
+  }
+
+  /// Creates a `TeXNode` instance from its JSON representation.
+  factory TeXNode.fromJson(Map<String, dynamic> json) {
+    final teXNode = TeXNode(null);
+    teXNode.courserPosition = json['courserPosition'] as int;
+    final childrenJson = json['children'] as List<dynamic>;
+    for (final childJson in childrenJson) {
+      if (childJson['type'] == 'TeXFunction') {
+        final expression = childJson['expression'] as String;
+        final args = (childJson['args'] as List<dynamic>)
+            .map<TeXArg>(
+                (arg) => TeXArg.values.byName((arg as String).split('.')[1]))
+            .toList();
+        final argNodesJson = childJson['argNodes'] as List<dynamic>;
+        final argNodes = argNodesJson
+            .map((nodeJson) =>
+                TeXNode.fromJson(nodeJson as Map<String, dynamic>))
+            .toList();
+        final teXFunction = TeXFunction(expression, teXNode, args, argNodes);
+        teXNode.children.add(teXFunction);
+      } else {
+        final child = TeX.fromJson(childJson as Map<String, dynamic>);
+        teXNode.children.add(child);
+      }
+    }
+    return teXNode;
+  }
 }
 
 /// Class holding a TeX function.
@@ -187,6 +222,48 @@ class TeXFunction extends TeX {
     }
     return buffer.toString();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll({
+      'type': 'TeXFunction',
+      'args': args.map((arg) => arg.toString()).toList(),
+      'argNodes': argNodes.map((node) => node.toJson()).toList(),
+    });
+    return json;
+  }
+
+  /// Transforms the TeXFunction in a Map<String, dynamic>
+  @override
+  factory TeXFunction.fromJson(Map<String, dynamic> json) {
+    final expression = json['expression'] as String;
+    final parent = TeXNode.fromJson(json['parent'] as Map<String, dynamic>);
+    final args = (json['args'] as List<dynamic>)
+        .map((arg) => _parseTeXArg(arg as String))
+        .toList();
+    final argNodes = (json['argNodes'] as List<dynamic>)
+        .map((nodeJson) => TeXNode.fromJson(nodeJson as Map<String, dynamic>))
+        .toList();
+    return TeXFunction(expression, parent, args, argNodes);
+  }
+
+  static TeXArg _parseTeXArg(String arg) {
+    switch (arg) {
+      case 'braces':
+        return TeXArg.braces;
+      case 'brackets':
+        return TeXArg.brackets;
+      case 'power':
+        return TeXArg.power;
+      case 'verticalBars':
+        return TeXArg.verticalBars;
+      case 'parentheses':
+        return TeXArg.parentheses;
+      default:
+        throw FormatException('Invalid TeXArg: $arg');
+    }
+  }
 }
 
 /// Class holding a single TeX expression.
@@ -197,6 +274,21 @@ class TeXLeaf extends TeX {
   @override
   String buildString({Color? cursorColor}) {
     return expression;
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'type': 'TeXLeaf',
+      'expression': expression,
+    };
+  }
+
+  ///Transforms the TeXLeaf in a Map<String, dynamic>
+  @override
+  factory TeXLeaf.fromJson(Map<String, dynamic> json) {
+    final expression = json['expression'] as String;
+    return TeXLeaf(expression);
   }
 }
 
@@ -210,6 +302,19 @@ abstract class TeX {
 
   /// Builds the string representation of this TeX expression.
   String buildString({required Color? cursorColor});
+
+  /// Converts the `TeX` instance to a JSON representation.
+  Map<String, dynamic> toJson() {
+    return {
+      'expression': expression,
+    };
+  }
+
+  /// Creates a `TeX` instance from its JSON representation.
+  factory TeX.fromJson(Map<String, dynamic> json) {
+    final expression = json['expression'] as String;
+    return TeXLeaf(expression);
+  }
 }
 
 /// Class describing the cursor as a TeX expression.
