@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -675,6 +677,22 @@ class MathFieldEditingController extends ChangeNotifier {
     currentNode.setCursor();
 
     return expression;
+  }
+
+  /// Converts the [root] instance to a JSON representation
+  String rootToJson() => jsonEncode(root.toJson());
+
+  /// Updates the [root] instance from a JSON representation.
+  void rootFromJson(Map<String, dynamic> json) {
+    try {
+      root = TeXNode.fromJson(json);
+    } catch (e) {
+      throw Exception('Error at root JSON parse: ($e)');
+    }
+    currentNode = root;
+    currentNode.courserPosition = currentNode.children.length;
+    currentNode.setCursor();
+    notifyListeners();
   }
 
   /// Clears the current value and sets it to the [expression] equivalent.
