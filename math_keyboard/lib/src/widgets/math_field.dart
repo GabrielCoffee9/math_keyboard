@@ -1042,6 +1042,9 @@ class MathFieldEditingController extends ChangeNotifier {
 
   var _disposed = false;
 
+  /// Informs if the controller has already been disposed.
+  bool get alreadyDisposed => _disposed;
+
   @override
   void dispose() {
     assert(!_disposed);
