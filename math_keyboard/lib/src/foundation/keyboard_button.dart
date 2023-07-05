@@ -147,7 +147,6 @@ final functionKeyboard = [
       value: r'\sqrt',
       args: [TeXArg.braces],
       asTex: true,
-      keyboardCharacters: ['r'],
     ),
     const BasicKeyboardButtonConfig(
       label: r'\sqrt[\Box]{\Box}',
@@ -240,6 +239,11 @@ final functionKeyboard = [
     ),
   ],
   [
+    const BasicKeyboardButtonConfig(
+      label: r'\partial',
+      value: r'\partial',
+      asTex: true,
+    ),
     const BasicKeyboardButtonConfig(
       label: r'\sin',
       value: r'\sin',

@@ -29,6 +29,7 @@ class MathField extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
     this.opensKeyboard = true,
+    this.authorizeAnyKey = false,
   }) : super(key: key);
 
   /// The controller for the math field.
@@ -117,6 +118,9 @@ class MathField extends StatefulWidget {
   ///
   /// Defaults to `true`.
   final bool opensKeyboard;
+
+  /// Authorizes any pressed keys if true.
+  final bool authorizeAnyKey;
 
   @override
   _MathFieldState createState() => _MathFieldState();
@@ -415,16 +419,6 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
       return null;
     }
 
-    // Handle generally specified constants.
-    if (lowerCaseCharacter == 'p') {
-      _controller.addLeaf(r'{\pi}');
-      return KeyEventResult.handled;
-    }
-    if (lowerCaseCharacter == 'e') {
-      _controller.addLeaf('{e}');
-      return KeyEventResult.handled;
-    }
-
     // Handle user-specified variables.
     for (final variable in widget.variables) {
       final startingCharacter = variable.substring(0, 1).toLowerCase();
@@ -432,6 +426,11 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
         _controller.addLeaf('{$variable}');
         return KeyEventResult.handled;
       }
+    }
+
+    if (widget.authorizeAnyKey && RegExp(r"[a-zA-Z>\'=]").hasMatch(character)) {
+      _controller.addLeaf(' $character ');
+      return KeyEventResult.handled;
     }
     return null;
   }
