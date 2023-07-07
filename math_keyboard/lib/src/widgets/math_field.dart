@@ -428,7 +428,8 @@ class _MathFieldState extends State<MathField> with TickerProviderStateMixin {
       }
     }
 
-    if (widget.authorizeAnyKey && RegExp(r"[a-zA-Z>\'=]").hasMatch(character)) {
+    if (widget.authorizeAnyKey &&
+        RegExp(r"[a-zA-Z><\'=]").hasMatch(character)) {
       _controller.addLeaf(' $character ');
       return KeyEventResult.handled;
     }
