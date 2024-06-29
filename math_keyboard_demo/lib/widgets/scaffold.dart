@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -73,7 +75,7 @@ class DemoScaffold extends StatelessWidget {
                         bottom: 3,
                       ),
                       child: MouseRegion(
-                        cursor: MaterialStateMouseCursor.clickable,
+                        cursor: WidgetStateMouseCursor.clickable,
                         child: GestureDetector(
                           onTap: () {
                             launchUrlString(gitHubUrl);
@@ -191,7 +193,7 @@ class DemoScaffold extends StatelessWidget {
                 height: 0,
               ),
               MouseRegion(
-                cursor: MaterialStateMouseCursor.clickable,
+                cursor: WidgetStateMouseCursor.clickable,
                 child: GestureDetector(
                   onTap: () {
                     launchUrlString(organizationUrl);

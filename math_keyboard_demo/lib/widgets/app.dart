@@ -8,10 +8,10 @@ class DemoApp extends StatefulWidget {
   const DemoApp({Key? key}) : super(key: key);
 
   @override
-  _DemoAppState createState() => _DemoAppState();
+  DemoAppState createState() => DemoAppState();
 }
 
-class _DemoAppState extends State<DemoApp> {
+class DemoAppState extends State<DemoApp> {
   var _darkMode = false;
 
   @override

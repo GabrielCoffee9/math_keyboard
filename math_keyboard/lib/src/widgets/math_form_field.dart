@@ -39,7 +39,7 @@ class MathFormField extends FormField<String> {
           validator: validator,
           autovalidateMode: autovalidateMode,
           builder: (FormFieldState<String> field) {
-            final state = field as _MathFormFieldState;
+            final state = field as MathFormFieldState;
 
             void onChangedHandler(String value) {
               field.didChange(value);
@@ -67,10 +67,10 @@ class MathFormField extends FormField<String> {
   final MathFieldEditingController? controller;
 
   @override
-  _MathFormFieldState createState() => _MathFormFieldState();
+  MathFormFieldState createState() => MathFormFieldState();
 }
-
-class _MathFormFieldState extends FormFieldState<String> {
+///
+class MathFormFieldState extends FormFieldState<String> {
   late MathFieldEditingController _controller;
 
   @override
@@ -114,6 +114,7 @@ class _MathFormFieldState extends FormFieldState<String> {
   }
 
   @override
+  // ignore: unnecessary_overrides
   void didChange(String? value) {
     super.didChange(value);
 

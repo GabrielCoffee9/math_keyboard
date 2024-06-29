@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: depend_on_referenced_packages
 import 'package:math_expressions/math_expressions.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
@@ -9,10 +10,10 @@ class DemoPageView extends StatefulWidget {
   const DemoPageView({Key? key}) : super(key: key);
 
   @override
-  _DemoPageViewState createState() => _DemoPageViewState();
+  DemoPageViewState createState() => DemoPageViewState();
 }
 
-class _DemoPageViewState extends State<DemoPageView> {
+class DemoPageViewState extends State<DemoPageView> {
   late final _controller = PageController();
 
   int get _page {
@@ -84,7 +85,7 @@ class _DemoPageViewState extends State<DemoPageView> {
                 bottom: 0,
                 left: 8,
                 child: MouseRegion(
-                  cursor: MaterialStateMouseCursor.clickable,
+                  cursor: WidgetStateMouseCursor.clickable,
                   child: GestureDetector(
                     onTap: () {
                       _controller.animateToPage(
@@ -93,9 +94,9 @@ class _DemoPageViewState extends State<DemoPageView> {
                         curve: Curves.ease,
                       );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: const Icon(Icons.chevron_left_outlined),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Icon(Icons.chevron_left_outlined),
                     ),
                   ),
                 ),
@@ -105,7 +106,7 @@ class _DemoPageViewState extends State<DemoPageView> {
                 bottom: 0,
                 right: 8,
                 child: MouseRegion(
-                  cursor: MaterialStateMouseCursor.clickable,
+                  cursor: WidgetStateMouseCursor.clickable,
                   child: GestureDetector(
                     onTap: () {
                       _controller.animateToPage(
@@ -114,9 +115,9 @@ class _DemoPageViewState extends State<DemoPageView> {
                         curve: Curves.ease,
                       );
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: const Icon(Icons.chevron_right_outlined),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Icon(Icons.chevron_right_outlined),
                     ),
                   ),
                 ),
@@ -159,7 +160,7 @@ class _Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 16,
         horizontal: 56,
       ),
@@ -188,7 +189,7 @@ class _PageIndicator extends StatelessWidget {
     final size = Size.fromRadius(selected ? 6.5 : 5);
 
     return MouseRegion(
-      cursor: MaterialStateMouseCursor.clickable,
+      cursor: WidgetStateMouseCursor.clickable,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
@@ -253,8 +254,8 @@ class _PrimaryPageState extends State<_PrimaryPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -269,7 +270,7 @@ class _PrimaryPageState extends State<_PrimaryPage> {
           width: 420,
           child: MathField(
             controller: _expressionController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Expression math field',
               filled: true,
               border: OutlineInputBorder(),
@@ -285,7 +286,7 @@ class _PrimaryPageState extends State<_PrimaryPage> {
             child: MathField(
               controller: _numberController,
               keyboardType: MathKeyboardType.numberOnly,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Number-only math field',
                 filled: true,
                 border: OutlineInputBorder(),
@@ -317,8 +318,8 @@ class _InputDecorationPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -329,7 +330,7 @@ class _InputDecorationPage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 420,
           child: TextField(
             decoration: InputDecoration(
@@ -339,8 +340,8 @@ class _InputDecorationPage extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(
+        const Padding(
+          padding: EdgeInsets.only(
             top: 16,
           ),
           child: SizedBox(
@@ -354,8 +355,8 @@ class _InputDecorationPage extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 32),
+        const Padding(
+          padding: EdgeInsets.only(top: 32),
           child: SizedBox(
             width: 6e2,
             child: Row(
@@ -368,7 +369,7 @@ class _InputDecorationPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 12,
                 ),
                 Expanded(
@@ -376,8 +377,8 @@ class _InputDecorationPage extends StatelessWidget {
                     keyboardType: MathKeyboardType.numberOnly,
                     decoration: InputDecoration(
                       helperText: 'This math field has some icons.',
-                      prefixIcon: const Icon(Icons.keyboard_outlined),
-                      suffixIcon: const Icon(Icons.format_shapes_sharp),
+                      prefixIcon: Icon(Icons.keyboard_outlined),
+                      suffixIcon: Icon(Icons.format_shapes_sharp),
                     ),
                   ),
                 )
@@ -428,8 +429,8 @@ class _ControllerPageState extends State<_ControllerPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -447,7 +448,7 @@ class _ControllerPageState extends State<_ControllerPage> {
               width: 3e2,
               child: MathField(
                 controller: _clipboardController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   filled: true,
                   border: OutlineInputBorder(),
                 ),
@@ -465,7 +466,8 @@ class _ControllerPageState extends State<_ControllerPage> {
                     await Clipboard.setData(ClipboardData(
                       text: _clipboardController.currentEditingValue(),
                     ));
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    // ignore: use_build_context_synchronously
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [Text('Copied TeX string to clipboard :)')],
@@ -473,7 +475,7 @@ class _ControllerPageState extends State<_ControllerPage> {
                     ));
                   },
                   icon: const Icon(Icons.copy_outlined),
-                  label: Text('Copy to clipboard'),
+                  label: const Text('Copy to clipboard'),
                 ),
               ),
             ),
@@ -494,7 +496,7 @@ class _ControllerPageState extends State<_ControllerPage> {
                   decoration: InputDecoration(
                     helperText: 'Clear all field',
                     suffix: MouseRegion(
-                      cursor: MaterialStateMouseCursor.clickable,
+                      cursor: WidgetStateMouseCursor.clickable,
                       child: GestureDetector(
                         onTap: _clearAllController.clear,
                         child: const Icon(
@@ -515,7 +517,7 @@ class _ControllerPageState extends State<_ControllerPage> {
                       'Works from anywhere - thanks to the controller pattern.',
                   child: OutlinedButton(
                     onPressed: _clearAllController.clear,
-                    child: Text('Clear all'),
+                    child: const Text('Clear all'),
                   ),
                 ),
               ),
@@ -534,7 +536,7 @@ class _ControllerPageState extends State<_ControllerPage> {
                 child: MathField(
                   keyboardType: MathKeyboardType.numberOnly,
                   controller: _magicController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Magic field',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -552,7 +554,7 @@ class _ControllerPageState extends State<_ControllerPage> {
                     _magicController.addLeaf('4');
                     _magicController.addLeaf('2');
                   },
-                  child: Text('Add 42'),
+                  child: const Text('Add 42'),
                 ),
               ),
             ],
@@ -587,8 +589,8 @@ class _AutofocusPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -602,7 +604,7 @@ class _AutofocusPage extends StatelessWidget {
           width: 420,
           child: MathField(
             autofocus: autofocus,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Autofocus math field',
               filled: true,
               border: OutlineInputBorder(),
@@ -652,8 +654,8 @@ class _FocusTreePageState extends State<_FocusTreePage> {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -674,8 +676,8 @@ class _FocusTreePageState extends State<_FocusTreePage> {
                   children: [
                     MathField(
                       focusNode: _focusNodeOne,
-                      variables: ['o', 'n', 'e'],
-                      decoration: InputDecoration(
+                      variables: const ['o', 'n', 'e'],
+                      decoration: const InputDecoration(
                         labelText: 'One',
                         filled: true,
                         border: OutlineInputBorder(),
@@ -687,8 +689,8 @@ class _FocusTreePageState extends State<_FocusTreePage> {
                       ),
                       child: MathField(
                         focusNode: _focusNodeTwo,
-                        variables: ['t', 'w', 'o'],
-                        decoration: InputDecoration(
+                        variables: const ['t', 'w', 'o'],
+                        decoration: const InputDecoration(
                           labelText: 'Two',
                           filled: true,
                           border: OutlineInputBorder(),
@@ -701,8 +703,8 @@ class _FocusTreePageState extends State<_FocusTreePage> {
                       ),
                       child: MathField(
                         focusNode: _focusNodeThree,
-                        variables: ['t', 'h', 'r', 'e'],
-                        decoration: InputDecoration(
+                        variables: const ['t', 'h', 'r', 'e'],
+                        decoration: const InputDecoration(
                           labelText: 'Three',
                           filled: true,
                           border: OutlineInputBorder(),
@@ -715,8 +717,8 @@ class _FocusTreePageState extends State<_FocusTreePage> {
                       ),
                       child: MathField(
                         focusNode: _focusNodeFour,
-                        variables: ['f', 'o', 'u', 'r'],
-                        decoration: InputDecoration(
+                        variables: const ['f', 'o', 'u', 'r'],
+                        decoration: const InputDecoration(
                           labelText: 'Four',
                           filled: true,
                           border: OutlineInputBorder(),
@@ -794,8 +796,8 @@ class _DecimalSeparatorPageState extends State<_DecimalSeparatorPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -810,11 +812,11 @@ class _DecimalSeparatorPageState extends State<_DecimalSeparatorPage> {
           width: 420,
           child: Localizations.override(
             context: context,
-            locale: Locale('en', 'US'),
+            locale: const Locale('en', 'US'),
             child: MathField(
               controller: _controller,
               keyboardType: MathKeyboardType.numberOnly,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'English locale',
                 filled: true,
                 border: OutlineInputBorder(),
@@ -831,11 +833,11 @@ class _DecimalSeparatorPageState extends State<_DecimalSeparatorPage> {
             width: 420,
             child: Localizations.override(
               context: context,
-              locale: Locale('de', 'DE'),
+              locale: const Locale('de', 'DE'),
               child: MathField(
                 controller: _controller,
                 keyboardType: MathKeyboardType.numberOnly,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'German locale',
                   filled: true,
                   border: OutlineInputBorder(),
@@ -906,8 +908,8 @@ class _MathExpressionsPageState extends State<_MathExpressionsPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(32),
+        const Padding(
+          padding: EdgeInsets.all(32),
           child: SizedBox(
             width: 5e2,
             child: Text(
@@ -921,7 +923,7 @@ class _MathExpressionsPageState extends State<_MathExpressionsPage> {
           width: 420,
           child: Localizations.override(
             context: context,
-            locale: Locale('en', 'US'),
+            locale: const Locale('en', 'US'),
             child: MathField(
               controller: _expressionController,
               onChanged: (tex) {
@@ -934,8 +936,8 @@ class _MathExpressionsPageState extends State<_MathExpressionsPage> {
                   _tex = tex;
                 });
               },
-              variables: ['x'],
-              decoration: InputDecoration(
+              variables: const ['x'],
+              decoration: const InputDecoration(
                 labelText: 'Expression field',
                 filled: true,
                 border: OutlineInputBorder(),
@@ -987,16 +989,16 @@ class _MathExpressionsPageState extends State<_MathExpressionsPage> {
                       _calculateResult();
                     } catch (_) {}
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Value for x',
                     filled: true,
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: const Icon(Icons.arrow_right_alt_outlined),
+              const Padding(
+                padding: EdgeInsets.all(16),
+                child: Icon(Icons.arrow_right_alt_outlined),
               ),
               Text(
                   'Result: ${_result?.toString() ?? 'waiting for valid input'}'),
@@ -1030,8 +1032,8 @@ class _FormFieldPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(32),
+              const Padding(
+                padding: EdgeInsets.all(32),
                 child: SizedBox(
                   width: 5e2,
                   child: Text(
@@ -1058,8 +1060,8 @@ class _FormFieldPage extends StatelessWidget {
                       return 'Invalid expression (:';
                     }
                   },
-                  variables: [],
-                  decoration: InputDecoration(
+                  variables: const [],
+                  decoration: const InputDecoration(
                     hintText: 'Enter a valid expression',
                   ),
                 ),
@@ -1071,7 +1073,7 @@ class _FormFieldPage extends StatelessWidget {
                     final result = Form.of(context).validate();
 
                     if (result == true) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [Text('Form is valid :)')],
@@ -1079,7 +1081,7 @@ class _FormFieldPage extends StatelessWidget {
                       ));
                     }
                   },
-                  child: Text('Submit form'),
+                  child: const Text('Submit form'),
                 ),
               )
             ],

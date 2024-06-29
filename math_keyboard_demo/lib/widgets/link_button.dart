@@ -28,7 +28,7 @@ class LinkButton extends StatelessWidget {
     void onPressed() => launchUrlString(url);
     final style = OutlinedButton.styleFrom(
       padding: const EdgeInsets.all(16),
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         fontSize: 20,
         decoration: TextDecoration.underline,
       ),
